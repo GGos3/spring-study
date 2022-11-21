@@ -1,5 +1,4 @@
 package hello.hellospring.controller;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,6 +24,7 @@ public class HelloController {
     public String helloString(@RequestParam("name") String name){
         return "hello " + name; //String은 그대로 반환함
     }
+
     @GetMapping("hello-api")
     @ResponseBody // 객체의 경우에는 JSON 형태로 반환함
     public Hello helloApi(@RequestParam("name") String name){
