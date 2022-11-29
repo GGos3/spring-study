@@ -13,13 +13,13 @@ import static org.junit.jupiter.api.Assertions.*;
 class MemberServiceTest {
     MemoryMemberRepository repository = new MemoryMemberRepository();
     MemberService memberService = new MemberService(repository);
-
+    // 테스트 실행 전
     @BeforeEach
     public void beforeEach(){
         repository = new MemoryMemberRepository();
         memberService = new MemberService(repository);
     }
-
+    // 테스트 실행 후
     @AfterEach
     public void afterEach(){
         repository.clearStore();
