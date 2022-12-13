@@ -40,8 +40,8 @@ public class ApplicationContestBasicFindTest {
     @Test
     @DisplayName("빈 이름으로 조회 X")
     void findBeanByNameX(){
-//        MemberServiceImpl xxxx = ac.getBean("xxxx", MemberServiceImpl.class);
-        // 오른쪽의 코드가 실행 되었을때 왼쪽의 예외가 터져야 성공
+/*        MemberServiceImpl xxxx = ac.getBean("xxxx", MemberServiceImpl.class);
+         오른쪽의 코드가 실행 되었을때 왼쪽의 예외가 터져야 성공*/
         assertThrows(NoSuchBeanDefinitionException.class,
                 () -> ac.getBean("xxxx", MemberService.class));
     }
