@@ -11,7 +11,7 @@ public class XmlAppContext {
     @Test
     void xmlAppContext(){
         ApplicationContext ac = new GenericXmlApplicationContext("appConfig.xml");
-        MemberService memberService = ac.getBean("memberSerice", MemberService.class);
+        MemberService memberService = ac.getBean("memberService", MemberService.class);
         Assertions.assertThat(memberService).isInstanceOf(MemberService.class);
     }
 }
