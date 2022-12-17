@@ -15,6 +15,9 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class AppConfig {
 
+
+    ee
+    /wee
     @Bean
     public MemberService memberService(){
         System.out.println("call AppConfig.memberService");
