@@ -1,4 +1,9 @@
+FROM openjdk:17-jdk-alpine AS Builder
+WORKDIR /app
+COPY . .
+RUN ./gradlew bootJar
+
 FROM openjdk:17-jdk-alpine
-ARG JAR_FILE=build/libs/*.jar
-COPY ${JAR_FILE} app.jar
+COPY --from=Builder /app/build/libs/*.jar app.jar
+EXPOSE 8080
 ENTRYPOINT ["java", "-jar", "/app.jar"]

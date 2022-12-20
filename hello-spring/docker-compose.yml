@@ -1,0 +1,20 @@
+version: "3"
+
+services:
+  database:
+    image: oscarfonts/h2
+    ports:
+      - "1521:1521"
+      - "8081:8081"
+    volumes:
+      - ./h2data:/opt/h2-data
+    environment:
+      H2_OPTIONS: "-ifNotExists"
+
+  app:
+    build: .
+    ports:
+      - "8080:8080"
+    depends_on:
+    - database
+
