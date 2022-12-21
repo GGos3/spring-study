@@ -7,5 +7,4 @@ JDBC, JDBC Template, JPA, Data JPA 사용
 ## core 
 순수 자바 코드로 회원별 할인 시스템 구현 후 스프링 전환\
 SOLID 원칙에 맞게 코드 작성하기\
-스프링 핵심 원리 이해\
-
+스프링 핵심 원리 이해
