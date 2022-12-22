@@ -1,6 +1,7 @@
 FROM openjdk:17-jdk-alpine AS Builder
 WORKDIR /app
 COPY . .
+RUN chmod +x ./gradlew
 RUN ./gradlew bootJar
 
 FROM openjdk:17-jdk-alpine
