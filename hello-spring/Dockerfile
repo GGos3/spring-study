@@ -1,6 +1,6 @@
 FROM openjdk:17-jdk-alpine AS Builder
 WORKDIR /app
-COPY . .
+COPY ./hello-spring .
 RUN chmod +x ./gradlew
 RUN ./gradlew bootJar
 
