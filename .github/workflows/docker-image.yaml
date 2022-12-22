@@ -11,9 +11,6 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ./hello-spring
     if: ${{ contains(github.event.head_commit.message, '[hello-spring deploy]') }}
     steps:
       - name: Checkout
@@ -26,15 +23,22 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
+#
+#      - name: Docker build & push
+#        uses: docker/build-push-action@v2
+#        with:
+#          context: .
+#          file: ./Dockerfile
+#          platforms: linux/amd64
+#          push: true
+#          tags: ${{ secrets.DOCKERHUB_USERNAME }}/hello-spring:latest
+      - name: docker build
+        working-directory: ./hello-spring
+        run: docker run build -t ${{ secrets.DOCKERHUB_USERNAME }}/hello-spring:latest .
 
-      - name: Build and push with Buildx
-        uses: docker/build-push-action@v2
-        with:
-          context: .
-          file: ./Dockerfile
-          platforms: linux/amd64
-          push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/hello-spring:latest
+      - name: docker push
+        run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/hello-spring:latest
+
 
   Deploy:
     runs-on: ubuntu-latest
@@ -57,7 +61,7 @@ jobs:
       - name: Pull docker Image
         run: |
           docker pull oscarfonts/h2
-          docker pull janpll0421/hello-spring
+          docker pull ${{ secrets.DOCKERHUB_USERNAME }}/hello-spring:latest
 
       - name: Docker Compose
         run: |
