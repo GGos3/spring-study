@@ -9,8 +9,6 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    env:
-      REPO: ${{ secrets.DOCKER_REPO }}
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -20,11 +18,45 @@ jobs:
       - name: CD hello spring
         run: cd hello-spring
 
-      - name: Docker Hub Sign-in
-        run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+      - name: Login to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: Building Docker Image
-        run: docker build -t $REPO:latest -t $REPO:${GITHUB_RUN_ID} .
+      - name: Build and push with Buildx
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          file: ./Dockerfile
+          platforms: linux/amd64
+          push: true
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/hello-spring:latest
 
-      - name: Publish Docker Image
-        run: docker push $REPO
+  Deploy:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: executing remote ssh commands using password
+        uses: appleboy/ssh-action@v0.1.6
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          password: ${{ secrets.PASSWORD }}
+          port: ${{ secrets.PORT }}
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Pull docker Image
+        run: |
+          docker pull oscarfonts/h2
+          docker pull janpll0421/hello-spring
+
+      - name: Docker Compose
+        run: |
+          wget https://raw.githubusercontent.com/GGos3/spring-study/main/hello-spring/docker-compose.yml
+          docker-compose up -d
