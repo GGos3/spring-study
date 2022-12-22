@@ -54,4 +54,5 @@ jobs:
           port: ${{ secrets.PORT }}
           script: |
             wget https://raw.githubusercontent.com/GGos3/spring-study/main/hello-spring/docker-compose.yml
-            docker compose up -d --pull
+            docker compose pull
+            docker compose up -d
