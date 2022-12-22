@@ -12,7 +12,7 @@ services:
       H2_OPTIONS: "-ifNotExists"
 
   app:
-    build: .
+    image: janpll0421/hello-spring
     ports:
       - "8080:8080"
     depends_on:
