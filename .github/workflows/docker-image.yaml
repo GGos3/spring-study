@@ -18,9 +18,6 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: CD hello spring
-        run: cd hello-spring
-
       - name: Login to Docker Hub
         uses: docker/login-action@v2
         with:
@@ -31,7 +28,7 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           context: .
-          file: ./Dockerfile
+          file: ./hello-spring/Dockerfile
           platforms: linux/amd64
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/hello-spring:latest
