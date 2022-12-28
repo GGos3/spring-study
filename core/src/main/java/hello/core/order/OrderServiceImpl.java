@@ -1,22 +1,19 @@
 package hello.core.order;
 
 import hello.core.discount.DiscountPolicy;
-import hello.core.discount.FixDiscountPolicy;
-import hello.core.discount.RateDiscountPolicy;
 import hello.core.member.Member;
 import hello.core.member.MemberRepository;
-import hello.core.member.MemoryMemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
 public class OrderServiceImpl implements OrderService{
 
-    private MemberRepository memberRepository;
-    private DiscountPolicy discountPolicy;
+    private final MemberRepository memberRepository;
+    private final DiscountPolicy discountPolicy;
 
     // 수정자 주입
-    @Autowired
+/*    @Autowired
     public void setMemberRepository(MemberRepository memberRepository) {
         this.memberRepository = memberRepository;
     }
@@ -24,14 +21,14 @@ public class OrderServiceImpl implements OrderService{
     @Autowired
     public void setDiscountPolicy(DiscountPolicy discountPolicy) {
         this.discountPolicy = discountPolicy;
-    }
+    }*/
 
     // 일반 메서드 주입
-    @Autowired
+ /*   @Autowired
     public void init(MemberRepository memberRepository, DiscountPolicy discountPolicy) {
         this.discountPolicy = discountPolicy;
         this.memberRepository = memberRepository;
-    }
+    }*/
 
     /*  private final DiscountPolicy discountPolicy = new RateDiscountPolicy();
             private final DiscountPolicy discountPolicy = new FixDiscountPolicy();
