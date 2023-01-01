@@ -53,6 +53,7 @@ jobs:
           password: ${{ secrets.PASSWORD }}
           port: ${{ secrets.PORT }}
           script: |
+            rm docker-compose.yml.*
             wget https://raw.githubusercontent.com/GGos3/spring-study/main/hello-spring/docker-compose.yml
             docker compose pull
             docker compose up -d
